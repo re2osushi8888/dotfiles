@@ -1,0 +1,8 @@
+return {
+  "rebelot/kanagawa.nvim",
+  priority = 1000, -- 最初に読み込ませる
+  lazy = false,
+  config = function()
+    vim.cmd.colorscheme("kanagawa")
+  end,
+}
