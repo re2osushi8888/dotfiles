@@ -12,17 +12,25 @@
 
 shell = "zsh"
 
+[templates]
+defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source \"{{ file }}\"\n{% endfor %}{{ hooks | get: \"post\" | nl }}"
+
 [plugins]
 
-# For example:
-#
-# [plugins.base16]
-# github = "chriskempson/base16-shell"
+[plugins.zsh-defer]
+github = "romkatv/zsh-defer"
+
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
-
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
 
 [plugins.zsh-you-should-use]
 github = "MichaelAquilina/zsh-you-should-use"
+apply = ["defer"]
+
+# zsh-syntax-highlighting は ZLE widget / hook をラップするため
+# 他の ZLE 系プラグインより「最後に読み込む」必要がある。
+# 後からロードされると hook が上書きされ、ハイライトが壊れる。
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+apply = ["defer"]
