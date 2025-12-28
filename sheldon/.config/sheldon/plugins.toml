@@ -18,6 +18,11 @@ shell = "zsh"
 #
 # [plugins.base16]
 # github = "chriskempson/base16-shell"
-zsh-autosuggestions = { github = "zsh-users/zsh-autosuggestions" }
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
 
-zsh-syntax-highlighting = { github = "zsh-users/zsh-syntax-highlighting" }
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.zsh-you-should-use]
+github = "MichaelAquilina/zsh-you-should-use"
