@@ -11,6 +11,7 @@ rust = "latest"
 starship = "latest"
 stylua = "latest"
 uv = "0.9.17"
+zellij = "latest"
 
 [settings]
 experimental = false
