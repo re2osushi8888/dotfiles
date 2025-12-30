@@ -87,7 +87,10 @@ eval "$(starship init zsh)"
 
 [ -d "$HOME/.ghcup/bin" ] && export PATH="$HOME/.ghcup/bin:$PATH"
 
-alias vim='nvim'
+# aliases読み込み
+if [ -f ~/.aliases ]; then
+  source ~/.aliases
+fi
 
 echo "zshrc finish"
 

@@ -1,0 +1,6 @@
+# ls
+alias la='ls -al'
+
+# vim
+alias vim='nvim'
+
