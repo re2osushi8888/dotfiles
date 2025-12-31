@@ -1,0 +1,20 @@
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
+[user]
+	name = re2osushi8888
+	email = re.2osushi8888@gmail.com
+[diff]
+	tool = nvimdiff
+[difftool]
+	prompt = false
+[difftool "nvimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[ghq]
+	root = ~/repos
+  root = ~/work
+[ghq "https://github.com/re2osushi8888"]
+  root = ~/my-repos/
+[includeIf "gitdir:~/work/"]
+  path = ~/work/.gitconfig
