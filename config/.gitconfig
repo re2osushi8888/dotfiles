@@ -1,3 +1,5 @@
+[includeIf "gitdir:~/work/"]
+  path = ~/work/.gitconfig
 [credential "https://github.com"]
 	helper = !gh auth git-credential
 [credential "https://gist.github.com"]
@@ -5,6 +7,20 @@
 [user]
 	name = re2osushi8888
 	email = re.2osushi8888@gmail.com
+[alias]
+  a = add
+  aa = add -A
+  br = branch
+  cm = commit -m
+  st = status -sb
+  sw = switch
+  swc = switch -c
+  lg = log --oneline --graph --decorate
+  lga = log --oneline --graph --decorate --all
+  undo = reset --soft HEAD^
+  unstage = restore --staged
+  discard = restore
+  amend = commit --amend
 [diff]
 	tool = nvimdiff
 [difftool]
@@ -16,5 +32,3 @@
   root = ~/work
 [ghq "https://github.com/re2osushi8888"]
   root = ~/my-repos/
-[includeIf "gitdir:~/work/"]
-  path = ~/work/.gitconfig
