@@ -92,5 +92,7 @@ if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
 
+export EDITOR=nvim
+
 echo "zshrc finish"
 
