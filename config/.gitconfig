@@ -28,7 +28,7 @@
 [difftool "nvimdiff"]
 	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
 [ghq]
-	root = ~/repos
   root = ~/work
+	root = ~/repos
 [ghq "https://github.com/re2osushi8888"]
-  root = ~/my-repos/
+  root = ~/repos/
