@@ -1,3 +1,7 @@
+# devcontainerで読み込まない設定
+# 備忘録として残しておく
+# [[ -o interactive ]] || return
+# [[ -n "$VSCODE_REMOTE_CONTAINERS" ]] && return
 echo "zshrc start"
 
 # If you come from bash you might have to change your $PATH.
