@@ -84,6 +84,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 eval "$(mise activate zsh)"
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
+source <(fzf --zsh)
 
 [ -d "$HOME/.ghcup/bin" ] && export PATH="$HOME/.ghcup/bin:$PATH"
 
@@ -92,7 +93,6 @@ if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
 
-source <(fzf --zsh)
 
 export EDITOR=nvim
 
