@@ -16,3 +16,7 @@ alias vim='nvim'
 
 alias g='git'
 
+# zshプラグインで展開されるように簡単な便利コマンドをalias登録しておく
+alias cdg='cd $(ghq list -p | fzf)'
+alias cdd='cd ~/dotfiles'
+alias vimc='nvim ~/dotfiles/config/'
