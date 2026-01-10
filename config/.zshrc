@@ -97,6 +97,12 @@ if [ -f ~/.aliases ]; then
   source ~/.aliases
 fi
 
+# gitのエイリアスをスペースを開けずに実行できるようにする
+if command -v git >/dev/null 2>&1; then
+  for alias in $(git config --get-regexp '^alias\.' | sed 's/^alias\.\([^ ]*\) .*/\1/'); do
+    alias g${alias}="git ${alias}"
+  done
+fi
 
 export EDITOR=nvim
 
