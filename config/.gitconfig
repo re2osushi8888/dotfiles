@@ -21,12 +21,27 @@
   unstage = restore --staged
   discard = restore
   amend = commit --amend
+  d = diff
+  ds = diff --staged
 [diff]
 	tool = nvimdiff
 [difftool]
 	prompt = false
 [difftool "nvimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+  cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[pager]
+  diff = delta
+  log = delta
+  reflog = delta
+  show = delta
+[core]
+  pager = delta
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true # use n and N to move between diff sections
+  line-numbers = true
+  side-by-side = true
 [ghq]
   root = ~/work
 	root = ~/repos
