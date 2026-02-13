@@ -1,5 +1,4 @@
 # dotfiles
-dotfiles
 
 ## 環境構築
 
