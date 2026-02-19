@@ -84,7 +84,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 
-
+source /home/r-yamamoto/.config/wezterm/wezterm.sh
 eval "$(mise activate zsh)"
 eval "$(sheldon source)"
 eval "$(starship init zsh)"
