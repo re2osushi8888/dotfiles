@@ -14,6 +14,9 @@ config.color_scheme = "Tokyo Night"
 config.window_background_opacity = 0.70
 config.use_ime = true
 
+-- リガチャ（ligature）を無効化（===や->などの自動変換をオフ）
+config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
+
 -- タブバーを有効にしてステータス表示を可能にする
 config.use_fancy_tab_bar = false  -- シンプルなタブバーを使用
 
