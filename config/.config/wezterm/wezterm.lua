@@ -17,33 +17,12 @@ config.use_ime = true
 -- タブバーを有効にしてステータス表示を可能にする
 config.use_fancy_tab_bar = false  -- シンプルなタブバーを使用
 
--- カーソルとコピーモードのカラー設定
-config.colors = {
-  -- カーソルの色（全モード共通）
-  cursor_bg = '#FFFF00',  -- 黄色（目立つ色）
-  cursor_fg = '#000000',  -- 黒
-  cursor_border = '#FFFF00',
-
-  -- 選択範囲の色（コピーモードでも使用）
-  selection_bg = '#FCA17D',  -- オレンジ系
-  selection_fg = '#000000',  -- 黒
-
-  -- コピーモードでの選択範囲（バグあり、動作しない可能性）
-  copy_mode_active_highlight_bg = { Color = '#FCA17D' },
-  copy_mode_active_highlight_fg = { Color = '#000000' },
-  copy_mode_inactive_highlight_bg = { Color = '#52AD70' },
-  copy_mode_inactive_highlight_fg = { Color = '#C0C0C0' },
-}
-
--- タイトルバーが表示されなくなる
--- config.window_decorations = "RESIZE"
-
 -- keybindsを読み込む
 local keybinds = require("keybinds")
 config.keys = keybinds.keys
 config.key_tables = keybinds.key_tables
 
--- 左下にモードを表示するイベントハンドラー
+-- 左上にモードを表示するイベントハンドラー
 wezterm.on('update-status', function(window, pane)
   local key_table = window:active_key_table()
 
