@@ -14,6 +14,9 @@ config.color_scheme = "Tokyo Night"
 config.window_background_opacity = 0.70
 config.use_ime = true
 
+-- タブバーを有効にしてステータス表示を可能にする
+config.use_fancy_tab_bar = false  -- シンプルなタブバーを使用
+
 -- カーソルとコピーモードのカラー設定
 config.colors = {
   -- カーソルの色（全モード共通）
@@ -40,33 +43,34 @@ local keybinds = require("keybinds")
 config.keys = keybinds.keys
 config.key_tables = keybinds.key_tables
 
--- デバッグ: keybindsが読み込まれたか確認
-wezterm.log_info("Loaded " .. #config.keys .. " keybindings")
-
--- コピーモード中に背景色を変更するイベントハンドラー
-local last_mode = nil  -- 前回のモードを記憶してラグを減らす
-
+-- 左下にモードを表示するイベントハンドラー
 wezterm.on('update-status', function(window, pane)
   local key_table = window:active_key_table()
-  local is_copy_mode = (key_table == 'copy_mode' or key_table == 'search_mode')
 
-  -- モードが変わってない場合は何もしない（パフォーマンス改善）
-  if is_copy_mode == last_mode then
-    return
-  end
-  last_mode = is_copy_mode
+  -- モード表示用のテキストと色
+  local mode_text = ''
+  local mode_color = '#7aa2f7'  -- デフォルト（青）
 
-  local overrides = window:get_config_overrides() or {}
-
-  if is_copy_mode then
-    -- コピーモード中: 背景を黄色っぽくする（透明度はそのまま）
-    overrides.colors = { background = '#3a382a' }  -- 黄色みがかった背景色
-  else
-    -- 通常モード: 元の設定に戻す
-    overrides.colors = { background = nil }  -- デフォルトに戻す
+  if key_table == 'copy_mode' or key_table == 'search_mode' then
+    mode_text = ' COPY '
+    mode_color = '#e0af68'  -- 黄色
+  elseif key_table == 'resize_pane' then
+    mode_text = ' RESIZE '
+    mode_color = '#7aa2f7'  -- 青
+  elseif key_table == 'leader' then
+    mode_text = ' LEADER '
+    mode_color = '#f7768e'  -- 赤
   end
 
-  window:set_config_overrides(overrides)
+  -- 左側のステータスバーに表示
+  window:set_left_status(wezterm.format {
+    { Background = { Color = mode_color } },
+    { Foreground = { Color = '#1a1b26' } },
+    { Text = mode_text },
+  })
+
+  -- 右側のステータスバーを空にする
+  window:set_right_status('')
 end)
 
 return config
