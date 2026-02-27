@@ -18,7 +18,11 @@ config.use_ime = true
 -- config.window_decorations = "RESIZE"
 
 -- keybindsを読み込む
-config.keys = require("keybinds").keys
-config.key_tables = require("keybinds").key_tables
+local keybinds = require("keybinds")
+config.keys = keybinds.keys
+config.key_tables = keybinds.key_tables
+
+-- デバッグ: keybindsが読み込まれたか確認
+wezterm.log_info("Loaded " .. #config.keys .. " keybindings")
 
 return config
