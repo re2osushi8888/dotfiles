@@ -137,10 +137,10 @@ return {
 
     -- リサイズモード
     resize_pane = {
-      { key = 'h', action = act.AdjustPaneSize{ 'Left', 1 } },
-      { key = 'j', action = act.AdjustPaneSize{ 'Down', 1 } },
-      { key = 'k', action = act.AdjustPaneSize{ 'Up', 1 } },
-      { key = 'l', action = act.AdjustPaneSize{ 'Right', 1 } },
+      { key = 'h', action = act.AdjustPaneSize{ 'Left', 5 } },
+      { key = 'j', action = act.AdjustPaneSize{ 'Down', 5 } },
+      { key = 'k', action = act.AdjustPaneSize{ 'Up', 5 } },
+      { key = 'l', action = act.AdjustPaneSize{ 'Right', 5 } },
       { key = 'z', action = act.TogglePaneZoomState },  -- ペインを最大化/元に戻す
       { key = 'Enter', action = 'PopKeyTable' },
       { key = 'Escape', action = 'PopKeyTable' },
