@@ -5,6 +5,49 @@ local act = wezterm.action
 -- 今後、必要な機能が出てきたら随時追加していく方針です。
 -- 追加する際は、ショートカットチートシート (docs/shotcuts-cheat-sheet.md) も更新してください。
 
+-- 透過率調整の共通ロジック
+local function adjust_opacity(window, pane, delta)
+  local overrides = window:get_config_overrides() or {}
+  local current_opacity = overrides.window_background_opacity
+  if current_opacity == nil then
+    current_opacity = window:effective_config().window_background_opacity
+  end
+  local opacity = math.max(0.1, math.min(1.0, current_opacity + delta))
+  overrides.window_background_opacity = opacity
+  window:set_config_overrides(overrides)
+end
+
+-- 透過率リセットの共通ロジック
+local function reset_opacity(window, pane)
+  local overrides = window:get_config_overrides() or {}
+  overrides.window_background_opacity = 0.70
+  window:set_config_overrides(overrides)
+end
+
+-- ぼかしのオン/オフ切り替えの共通ロジック
+local function toggle_blur(window, pane)
+  local overrides = window:get_config_overrides() or {}
+
+  -- 現在のぼかし設定を取得
+  local current_backdrop = overrides.win32_system_backdrop
+  if current_backdrop == nil then
+    current_backdrop = window:effective_config().win32_system_backdrop
+  end
+
+  -- ぼかしの状態を切り替え
+  if current_backdrop == "Acrylic" then
+    -- ぼかしOFF
+    overrides.win32_system_backdrop = "Disable"
+    overrides.window_background_opacity = 0.70
+  else
+    -- ぼかしON
+    overrides.win32_system_backdrop = "Acrylic"
+    overrides.window_background_opacity = 0.1
+  end
+
+  window:set_config_overrides(overrides)
+end
+
 return {
   keys = {
     -- Leader key: Ctrl+Q
@@ -53,12 +96,46 @@ return {
 
     -- フォントサイズ調整
     { key = '+', mods = 'CTRL', action = act.IncreaseFontSize },
-    { key = '+', mods = 'SHIFT|CTRL', action = act.IncreaseFontSize },
     { key = '=', mods = 'CTRL', action = act.IncreaseFontSize },
-    { key = '=', mods = 'SHIFT|CTRL', action = act.IncreaseFontSize },
     { key = '-', mods = 'CTRL', action = act.DecreaseFontSize },
-    { key = '-', mods = 'SHIFT|CTRL', action = act.DecreaseFontSize },
-    { key = '0', mods = 'SHIFT|CTRL', action = act.ResetFontSize },
+    { key = '0', mods = 'CTRL', action = act.ResetFontSize },
+
+    -- 透過率調整
+    {
+      key = '=',
+      mods = 'CTRL|ALT',
+      action = wezterm.action_callback(function(window, pane)
+        adjust_opacity(window, pane, 0.1)
+      end)
+    },
+    {
+      key = '-',
+      mods = 'CTRL|ALT',
+      action = wezterm.action_callback(function(window, pane)
+        adjust_opacity(window, pane, -0.1)
+      end)
+    },
+    -- 背景ぼかしのオン/オフ切り替え (Windows Acrylic)
+    {
+      key = 'O',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action_callback(toggle_blur)
+    },
+    {
+      key = 'o',
+      mods = 'SHIFT|CTRL',
+      action = wezterm.action_callback(toggle_blur)
+    },
+    {
+      key = 'O',
+      mods = 'CTRL|ALT',
+      action = wezterm.action_callback(toggle_blur)
+    },
+    {
+      key = 'o',
+      mods = 'CTRL|ALT',
+      action = wezterm.action_callback(toggle_blur)
+    },
 
     -- コマンドパレット
     { key = 'P', mods = 'SHIFT|CTRL', action = act.ActivateCommandPalette },
