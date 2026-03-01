@@ -18,7 +18,7 @@ config.use_ime = true
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
 
 -- タブバーを有効にしてステータス表示を可能にする
-config.use_fancy_tab_bar = false  -- シンプルなタブバーを使用
+config.use_fancy_tab_bar = false
 
 -- keybindsを読み込む
 local keybinds = require("keybinds")
