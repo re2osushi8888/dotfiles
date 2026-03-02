@@ -4,7 +4,10 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
+			local capabilities = require("blink.cmp").get_lsp_capabilities()
+
 			vim.lsp.config("lua_ls", {
+				capabilities = capabilities,
 				settings = {
 					Lua = {
 						diagnostics = {
@@ -13,24 +16,6 @@ return {
 					},
 				},
 			})
-      vim.lsp.config("hls", {
-        cmd = { "haskell-language-server-wrapper", "--lsp" },
-        filetypes = { "haskell", "lhaskell" },
-
-        root_markers = {
-          "stack.yaml",
-          "cabal.project",
-          "*.cabal",
-          "package.yaml",
-          "hie.yaml",
-          ".git",
-        },
-        settings = {
-          haskell = {
-            formattingProvider = "fourmolu",
-          },
-        },
-      })
 		end,
 	},
 }
