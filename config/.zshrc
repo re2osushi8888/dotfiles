@@ -108,4 +108,7 @@ export EDITOR=nvim
 
 echo "zshrc finish"
 
-source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+# source ~/.safe-chain/scripts/init-posix.sh # Safe-chain Zsh initialization script
+
+# Vite+ bin (https://viteplus.dev)
+# . "$HOME/.vite-plus/env"
