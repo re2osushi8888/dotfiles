@@ -19,7 +19,7 @@ disabled = true
 description = "git user.name"
 require_repo = true
 command = 'git config user.name || echo "❌Unset Git User"'
-when = true
+when = 'git config user.name >/dev/null 2>&1'
 format = 'as [$output]($style) '
 style = 'bold cyan'
 
