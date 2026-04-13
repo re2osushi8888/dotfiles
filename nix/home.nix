@@ -4,7 +4,7 @@
   home = {
     username = "r-yamamoto";
     homeDirectory = "/home/r-yamamoto";
-    stateVersion = "24.11";
+    stateVersion = "25.05";
 
     # mise で管理していたツールを nix packages に移行
     # 残すもの(mise): rust, ghcup, claude (nixpkgs 未対応 or toolchain管理が複雑なもの)
@@ -70,26 +70,26 @@
     # git 設定 (.gitconfig を home-manager が管理)
     git = {
       enable = true;
-      userName = "re2osushi8888";
-      userEmail = "re.2osushi8888@gmail.com";
-      aliases = {
-        a       = "add";
-        aa      = "add -A";
-        br      = "branch";
-        cm      = "commit -m";
-        st      = "status -sb";
-        sw      = "switch";
-        swc     = "switch -c";
-        lg      = "log --oneline --graph --decorate";
-        lga     = "log --oneline --graph --decorate --all";
-        undo    = "reset --soft HEAD^";
-        unstage = "restore --staged";
-        discard = "restore";
-        amend   = "commit --amend";
-        d       = "diff";
-        ds      = "diff --staged";
-      };
-      extraConfig = {
+      settings = {
+        user.name  = "re2osushi8888";
+        user.email = "re.2osushi8888@gmail.com";
+        alias = {
+          a       = "add";
+          aa      = "add -A";
+          br      = "branch";
+          cm      = "commit -m";
+          st      = "status -sb";
+          sw      = "switch";
+          swc     = "switch -c";
+          lg      = "log --oneline --graph --decorate";
+          lga     = "log --oneline --graph --decorate --all";
+          undo    = "reset --soft HEAD^";
+          unstage = "restore --staged";
+          discard = "restore";
+          amend   = "commit --amend";
+          d       = "diff";
+          ds      = "diff --staged";
+        };
         credential."https://github.com".helper      = "!gh auth git-credential";
         credential."https://gist.github.com".helper = "!gh auth git-credential";
         diff.tool          = "nvimdiff";
@@ -142,7 +142,7 @@
       '';
 
       # .zshrc 相当
-      initExtra = ''
+      initContent = ''
         # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
 
