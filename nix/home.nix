@@ -136,6 +136,11 @@
         EDITOR = "nvim";
       };
 
+      shellAliases = {
+        hms = "home-manager switch --flake ~/dotfiles#r-yamamoto";
+        hmd = "home-manager switch --flake ~/dotfiles#r-yamamoto --dry-run";
+      };
+
       # .zprofile 相当: 非インタラクティブシェル向け PATH 設定
       profileExtra = ''
         eval "$(mise activate zsh --shims)"
