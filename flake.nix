@@ -1,5 +1,5 @@
 {
-  description = "r-yamamoto's home-manager configuration";
+  description = "re2osushi8888's home-manager configuration";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -17,7 +17,7 @@
         config.allowUnfree = true;
       };
     in {
-      homeConfigurations."r-yamamoto" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."re2osushi8888" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./nix/home.nix ];
       };

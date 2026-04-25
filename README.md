@@ -37,7 +37,7 @@ rm ~/.zshrc ~/.zprofile ~/.gitconfig
 
 ```bash
 cd ~/dotfiles
-nix run home-manager/master -- switch --flake .#r-yamamoto
+nix run home-manager/master -- switch --flake .#re2osushi8888
 ```
 
 ### 5. 以降の更新
@@ -45,7 +45,7 @@ nix run home-manager/master -- switch --flake .#r-yamamoto
 設定を変更したら以下を実行。
 
 ```bash
-home-manager switch --flake .#r-yamamoto
+home-manager switch --flake .#re2osushi8888
 ```
 
 ### 管理構成
