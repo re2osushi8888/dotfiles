@@ -6,16 +6,22 @@
     homeDirectory = "/home/r-yamamoto";
     stateVersion = "25.05";
 
+    sessionPath = [
+      "$HOME/bin"
+    ];
+
     # mise で管理していたツールを nix packages に移行
     # 残すもの(mise): rust, ghcup, claude (nixpkgs 未対応 or toolchain管理が複雑なもの)
     packages = with pkgs; [
       # シェルツール
       sheldon   # zsh プラグインマネージャ
+      mise      # rust/ghcup/claude 用に残す
 
       # 検索・ナビゲーション
       ripgrep
       fd
       ghq
+      bat
 
       # ターミナル
       zellij
@@ -26,17 +32,11 @@
       lazygit
       delta      # git diff viewer
       stylua     # Lua フォーマッタ
-      lefthook   # git hooks
-
-      # ランタイム
-      bun
-      nodejs_24
-      pnpm
-      uv         # Python パッケージマネージャ
 
       # CLI
-      gh         # GitHub CLI
+      gh           # GitHub CLI
       jq
+      claude-code
 
       # シェルプロンプト
       starship
@@ -142,12 +142,14 @@
       };
 
       # .zprofile 相当: 非インタラクティブシェル向け PATH 設定
-      profileExtra = ''
-        eval "$(mise activate zsh --shims)"
-      '';
+#      profileExtra = ''
+#       eval "$(mise activate zsh --shims)"
+#     '';
 
       # .zshrc 相当
       initContent = ''
+        bindkey -e
+
         # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
 

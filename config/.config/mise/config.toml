@@ -1,6 +1,5 @@
 [tools]
 # nix で管理できないものだけ残す
-claude = "2.1.89"   # nixpkgs 未収録
 ghcup  = "0.1.50.2" # Haskell toolchain マネージャ
 rust   = "1.92.0"   # toolchain 管理が複雑なため (将来 rust-overlay で移行予定)
 

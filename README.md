@@ -59,6 +59,44 @@ home-manager switch --flake .#r-yamamoto
 | mise (rust, ghcup, claude) | mise のまま管理 |
 
 
+## Nix の日常的な使い方
+
+### パッケージを追加する
+
+```bash
+# 1. nix/home.nix の home.packages に追加
+#    home.packages = with pkgs; [ bat ];
+
+# 2. 反映
+hms
+```
+
+パッケージ名は https://search.nixos.org/packages で検索。
+
+### 設定を更新する
+
+```bash
+# nix/home.nix を編集後
+hms          # 反映
+hmd          # ドライラン（変更確認のみ）
+```
+
+### nixpkgs を最新に更新する
+
+```bash
+nix flake update   # flake.lock を更新
+hms                # 反映
+```
+
+### ロールバック
+
+```bash
+home-manager generations   # 世代一覧
+home-manager rollback      # 1つ前に戻す
+```
+
+---
+
 ## おまけ：zsh のインストール・反映
 
 ```bash
