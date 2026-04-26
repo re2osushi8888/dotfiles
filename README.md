@@ -1,75 +1,112 @@
 # dotfiles
 
-## 環境構築
+## セットアップ方法
 
-### 前提条件
-wsl2のUbuntuで実施を想定している。適宜読み替えてください。
-下記がインストールされていること
-- zsh
-- git
+WSL2 の Ubuntu を想定。前提として `zsh` と `git` がインストールされていること。
 
-### 手順
-#### GNU stowのインストール
-シンボリックリンクを張るためにGNU stowをインストール
-```
-sudo apt update
-sudo apt install -y stow
+---
+
+## Nix を使ったセットアップ（推奨）
+
+パッケージ管理・dotfiles のシンボリックリンク・各種設定を home-manager で一括管理する。
+
+### 1. Nix のインストール
+
+[zero-to-nix](https://zero-to-nix.com/start/install/) が推奨する [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) を使う。flakes が最初から有効になる。
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-#### ホームディレクトリでdotfiles をgit clone
+インストーラーが表示するプランを確認・承認し、「Nix was installed successfully!」が表示されたら完了。新しいターミナルを開いて変更を反映する。
+
+```bash
+nix --version  # バージョンが表示されれば成功
 ```
+
+### 2. dotfiles を clone
+
+```bash
 cd ~
 git clone https://github.com/re2osushi8888/dotfiles.git
-cd dotfiles
 ```
 
-#### stow で dotfiles/ 配下からシンボリックリンクを張る
-今の構成だとホームディレクトリ配下にdotfiles/がないと行けないので注意  
-任意のディレクトリにdotfiles/やシンボリックリンクを張りたければ`--target DIR_NAME`などのオプションをつける
+### 3. 既存のシンボリックリンクを削除
 
-ドライラン
+home-manager が管理するファイルと競合するため削除する。
+
+```bash
+rm ~/.zshrc ~/.zprofile ~/.gitconfig
 ```
+
+### 4. home-manager を適用
+
+```bash
 cd ~/dotfiles
-stow -vvn config
+nix run home-manager/master -- switch --flake .#re2
 ```
 
-実行
-```
-cd ~/dotfiles
-stow -vv config
+### 5. 以降の更新
+
+設定を変更したら以下を実行。
+
+```bash
+home-manager switch --flake .#re2
 ```
 
-シンボリックリンク削除
-```
-cd ~/dotfiles 
-stow -vvD config
+### 管理構成
+
+| 設定 | 管理方法 |
+|------|----------|
+| パッケージ (`ripgrep`, `neovim` など) | `nix/home.nix` の `home.packages` |
+| dotfiles のシンボリックリンク | `home.file` + `mkOutOfStoreSymlink` |
+| git 設定 | `programs.git` |
+| zsh 設定 | `programs.zsh` |
+| mise (rust, ghcup, claude) | mise のまま管理 |
+
+
+## Nix の日常的な使い方
+
+### パッケージを追加する
+
+```bash
+# 1. nix/home.nix の home.packages に追加
+#    home.packages = with pkgs; [ bat ];
+
+# 2. 反映
+hms
 ```
 
-#### miseでコマンドをインストール
-まずはmise自体をインストールする
-```
-curl https://mise.run/zsh | sh
+パッケージ名は https://search.nixos.org/packages で検索。
+
+### 設定を更新する
+
+```bash
+# nix/home.nix を編集後
+hms          # 反映
+hmd          # ドライラン（変更確認のみ）
 ```
 
-ホームディレクトリに移動してmise installを実行する。  
-ホームディレクトリに移動しないとディレクトリ専用のmise.tomlが生成されてしまう。  
-`~/.config/mise/config.toml`を参照するためにホームディレクトリに移動すること。
-```
-cd ~
-mise install
+### nixpkgs を最新に更新する
+
+```bash
+nix flake update   # flake.lock を更新
+hms                # 反映
 ```
 
-終わったらzshを再起動する
-```
-exec zsh -l
+### ロールバック
+
+```bash
+home-manager generations   # 世代一覧
+home-manager rollback      # 1つ前に戻す
 ```
 
-#### おまけ：zshインストール・反映
-下記コマンドを実行した後再起動
-```
+---
+
+## おまけ：zsh のインストール・反映
+
+```bash
 sudo apt update
 sudo apt install -y zsh
-
 chsh -s "$(which zsh)"
 ```
-

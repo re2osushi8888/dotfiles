@@ -17,13 +17,6 @@ local function adjust_opacity(window, pane, delta)
   window:set_config_overrides(overrides)
 end
 
--- 透過率リセットの共通ロジック
-local function reset_opacity(window, pane)
-  local overrides = window:get_config_overrides() or {}
-  overrides.window_background_opacity = 0.70
-  window:set_config_overrides(overrides)
-end
-
 -- ぼかしのオン/オフ切り替えの共通ロジック
 local function toggle_blur(window, pane)
   local overrides = window:get_config_overrides() or {}
@@ -42,7 +35,7 @@ local function toggle_blur(window, pane)
   else
     -- ぼかしON
     overrides.win32_system_backdrop = "Acrylic"
-    overrides.window_background_opacity = 0.1
+    overrides.window_background_opacity = 0.5
   end
 
   window:set_config_overrides(overrides)
