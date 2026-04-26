@@ -137,8 +137,8 @@
       };
 
       shellAliases = {
-        hms = "home-manager switch --flake ~/dotfiles#re2osushi8888";
-        hmd = "home-manager switch --flake ~/dotfiles#re2osushi8888 --dry-run";
+        hms = "home-manager switch --flake ~/dotfiles#re2";
+        hmd = "home-manager switch --flake ~/dotfiles#re2 --dry-run";
       };
 
       # .zprofile 相当: 非インタラクティブシェル向け PATH 設定
