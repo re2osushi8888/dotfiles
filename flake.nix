@@ -17,7 +17,7 @@
         config.allowUnfree = true;
       };
     in {
-      homeConfigurations."re2osushi8888" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."re2" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ ./nix/home.nix ];
       };

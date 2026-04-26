@@ -2,8 +2,8 @@
 
 {
   home = {
-    username = "r-yamamoto";
-    homeDirectory = "/home/r-yamamoto";
+    username = "re2";
+    homeDirectory = "/home/re2";
     stateVersion = "25.05";
 
     sessionPath = [
