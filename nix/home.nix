@@ -37,6 +37,7 @@
       gh           # GitHub CLI
       jq
       claude-code
+      cursor-cli
 
       # シェルプロンプト
       starship
@@ -49,8 +50,6 @@
     # stow の代わりに home.file でシンボリックリンク管理
     # mkOutOfStoreSymlink: nix store 外のファイルへのリンク (編集可能)
     file = {
-      ".aliases".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.aliases";
       ".config/sheldon".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/sheldon";
       ".config/starship.toml".source =
@@ -137,14 +136,51 @@
       };
 
       shellAliases = {
+        # nix / home-manager
         hms = "home-manager switch --flake ~/dotfiles#re2";
         hmd = "home-manager switch --flake ~/dotfiles#re2 --dry-run";
+
+        # ファイル操作
+        ll  = "ls -l";
+        la  = "ls -a";
+        lla = "ls -al";
+        rm  = "rm -i";
+        cp  = "cp -i";
+        mv  = "mv -i";
+
+        # 検索
+        grep = "grep --color=auto";
+
+        # ディレクトリ移動
+        ".."  = "cd ..";
+        "..." = "cd ../..";
+
+        # エディタ
+        vi  = "nvim";
+        vim = "nvim";
+
+        # git
+        g = "git";
+
+        # ナビゲーション
+        cdg  = "cd $(ghq list -p | fzf)";
+        cdd  = "cd ~/dotfiles";
+        vimc = "nvim ~/dotfiles/config/";
+
+        # AI
+        cl  = "claude";
+        clc = "claude --continue";
+        ca  = "cursor-agent";
       };
 
-      # .zprofile 相当: 非インタラクティブシェル向け PATH 設定
-#      profileExtra = ''
-#       eval "$(mise activate zsh --shims)"
-#     '';
+      # .zprofile 相当: PATH 設定 (shims モード)
+      # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため
+      # zprof 計測で起動時間の約55%を占めていた。
+      # --shims は shims ディレクトリを PATH に追加するだけなのでフックなし。
+      # バージョン切り替えは .mise.toml を shims 経由で解決するため動作は同じ。
+      profileExtra = ''
+        eval "$(mise activate zsh --shims)"
+      '';
 
       # .zshrc 相当
       initContent = ''
@@ -152,9 +188,6 @@
 
         # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
-
-        # mise (インタラクティブ用)
-        eval "$(mise activate zsh)"
 
         # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
@@ -165,17 +198,15 @@
         # Haskell (ghcup)
         [ -d "$HOME/.ghcup/bin" ] && export PATH="$HOME/.ghcup/bin:$PATH"
 
-        # エイリアス
-        if [ -f ~/.aliases ]; then
-          source ~/.aliases
-        fi
-
         # git alias を g<name> でも呼べるようにする
         if command -v git >/dev/null 2>&1; then
           for alias in $(git config --get-regexp '^alias\.' | sed 's/^alias\.\([^ ]*\) .*/\1/'); do
             alias g''${alias}="git ''${alias}"
           done
         fi
+
+        # ~/.local/bin に入るコマンドも使いたい
+        export PATH="$HOME/.local/bin:$PATH"
       '';
     };
   };
