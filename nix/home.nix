@@ -204,9 +204,6 @@
             alias g''${alias}="git ''${alias}"
           done
         fi
-
-        # ~/.local/bin に入るコマンドも使いたい
-        export PATH="$HOME/.local/bin:$PATH"
       '';
     };
   };
