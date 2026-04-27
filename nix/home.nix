@@ -173,21 +173,21 @@
         ca  = "cursor-agent";
       };
 
-      # .zprofile 相当: PATH 設定 (shims モード)
-      # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため
-      # zprof 計測で起動時間の約55%を占めていた。
-      # --shims は shims ディレクトリを PATH に追加するだけなのでフックなし。
-      # バージョン切り替えは .mise.toml を shims 経由で解決するため動作は同じ。
-      profileExtra = ''
-        eval "$(mise activate zsh --shims)"
-      '';
-
       # .zshrc 相当
       initContent = ''
         bindkey -e
 
+        # mise shims モード: .zprofile はログインシェルでしか読まれないため
+        # .zshrc (initContent) で PATH に追加する。
+        # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため重く、
+        # zprof 計測で起動時間の約55%を占めていた。shims モードはフックなしで軽量。
+        export PATH="$HOME/.local/share/mise/shims:$PATH"
+
         # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
+
+        # safe-chain: npm/pip/uv 等のマルウェア検知ラッパー (mise で管理)
+        [[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"
 
         # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
