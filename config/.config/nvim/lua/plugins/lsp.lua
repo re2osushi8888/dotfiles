@@ -1,6 +1,4 @@
 return {
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
@@ -16,6 +14,9 @@ return {
 					},
 				},
 			})
+
+			vim.lsp.enable("lua_ls")
+			vim.lsp.enable("ts_ls")
 		end,
 	},
 }

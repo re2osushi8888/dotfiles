@@ -7,6 +7,3 @@ require("config.keymaps")
 require("config.diagnostics")
 require("config.clipboard")
 
-require("mason").setup()
-require("mason-lspconfig").setup()
-

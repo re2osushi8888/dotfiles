@@ -28,7 +28,6 @@
       glow       # markdown ビューア
 
       # 開発ツール
-      neovim
       lazygit
       delta      # git diff viewer
       stylua     # Lua フォーマッタ
@@ -65,6 +64,15 @@
 
   programs = {
     home-manager.enable = true;
+
+    # neovim (extraPackages で LSP を neovim 専用 PATH に閉じ込める)
+    neovim = {
+      enable = true;
+      extraPackages = with pkgs; [
+        lua-language-server         # lua_ls
+        typescript-language-server  # ts_ls
+      ];
+    };
 
     # git 設定 (.gitconfig を home-manager が管理)
     git = {
