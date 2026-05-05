@@ -1,6 +1,6 @@
 return {
   "mrcjkb/haskell-tools.nvim",
-  version = "^6",
+  version = "^9",
   lazy = false,
   ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
   config = function()
