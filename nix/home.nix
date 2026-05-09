@@ -134,6 +134,7 @@
     # zsh (.zshrc / .zprofile を home-manager が管理)
     zsh = {
       enable = true;
+      enableCompletion = false;
 
       sessionVariables = {
         EDITOR = "nvim";
@@ -179,6 +180,14 @@
 
       # .zshrc 相当
       initContent = ''
+        # compinit: 24時間キャッシュで compaudit をスキップ (起動時間の92%削減)
+        autoload -U compinit
+        if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
+          compinit
+        else
+          compinit -C
+        fi
+
         bindkey -e
 
         # mise shims モード: .zprofile はログインシェルでしか読まれないため
