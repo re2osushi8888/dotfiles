@@ -54,15 +54,15 @@
     # mkOutOfStoreSymlink: nix store 外のファイルへのリンク (編集可能)
     file = {
       ".config/sheldon".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/sheldon";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/sheldon";
       ".config/starship.toml".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/starship.toml";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/starship.toml";
       ".config/nvim".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
       ".config/wezterm".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/wezterm";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/wezterm";
       ".config/mise/config.toml".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/mise/config.toml";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/mise/config.toml";
     };
 
   };
