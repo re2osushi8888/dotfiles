@@ -31,6 +31,10 @@
       lazygit
       delta      # git diff viewer
       stylua     # Lua フォーマッタ
+      tree-sitter
+      neovim
+      lua-language-server         # lua_ls
+      typescript-language-server  # ts_ls
 
       # CLI
       gh           # GitHub CLI
@@ -54,25 +58,17 @@
       ".config/starship.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/starship.toml";
       ".config/nvim".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/nvim";
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/nvim";
       ".config/wezterm".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/wezterm";
       ".config/mise/config.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/.config/mise/config.toml";
     };
+
   };
 
   programs = {
     home-manager.enable = true;
-
-    # neovim (extraPackages で LSP を neovim 専用 PATH に閉じ込める)
-    neovim = {
-      enable = true;
-      extraPackages = with pkgs; [
-        lua-language-server         # lua_ls
-        typescript-language-server  # ts_ls
-      ];
-    };
 
     # git 設定 (.gitconfig を home-manager が管理)
     git = {
