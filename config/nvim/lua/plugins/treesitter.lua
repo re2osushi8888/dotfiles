@@ -20,6 +20,7 @@ return {
           "json",
           "yaml",
           "toml",
+          "prisma",
         },
         auto_install = true,
       })

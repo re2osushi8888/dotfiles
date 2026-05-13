@@ -35,6 +35,7 @@
       neovim
       lua-language-server         # lua_ls
       typescript-language-server  # ts_ls
+      prisma-language-server # primals
 
       # CLI
       gh           # GitHub CLI
