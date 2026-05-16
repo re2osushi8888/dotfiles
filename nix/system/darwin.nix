@@ -24,6 +24,8 @@
     ];
   };
 
+  programs.zsh.enable = true;
+
   system.primaryUser = username;
 
   system.stateVersion = 5;
