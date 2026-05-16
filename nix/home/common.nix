@@ -46,6 +46,7 @@
       # 基本
       curl
       htop
+      tree
     ];
 
     file = {
