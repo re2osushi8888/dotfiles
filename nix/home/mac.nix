@@ -1,7 +1,7 @@
-{ ... }:
+{ username, ... }:
 
 {
-  home.homeDirectory = "/Users/re2";
+  home.homeDirectory = "/Users/${username}";
 
   programs.zsh.shellAliases = {
     hms = "sudo darwin-rebuild switch --flake ~/dotfiles#mac";

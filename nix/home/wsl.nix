@@ -1,7 +1,7 @@
-{ ... }:
+{ username, ... }:
 
 {
-  home.homeDirectory = "/home/re2";
+  home.homeDirectory = "/home/${username}";
 
   programs.zsh.shellAliases = {
     hms = "home-manager switch --flake ~/dotfiles#wsl";

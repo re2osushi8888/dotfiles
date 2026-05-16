@@ -1,8 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   home = {
-    username = "re2";
+    username = username;
     stateVersion = "25.05";
 
     sessionPath = [

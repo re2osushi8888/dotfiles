@@ -13,11 +13,16 @@
     };
   };
 
-  outputs = { nixpkgs, nix-darwin, home-manager, ... }: {
+  outputs = { nixpkgs, nix-darwin, home-manager, ... }:
+    let
+      macUser = "re2";
+      wslUser = "re2";
+    in {
 
     # macOS (nix-darwin + home-manager)
     darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
+      specialArgs = { username = macUser; };
       modules = [
         ./nix/system/darwin.nix
         home-manager.darwinModules.home-manager
@@ -25,7 +30,8 @@
           home-manager = {
             useGlobalPkgs = true;
             useUserPackages = true;
-            users.re2.imports = [
+            extraSpecialArgs = { username = macUser; };
+            users.${macUser}.imports = [
               ./nix/home/common.nix
               ./nix/home/mac.nix
             ];
@@ -40,6 +46,7 @@
         system = "x86_64-linux";
         config.allowUnfree = true;
       };
+      extraSpecialArgs = { username = wslUser; };
       modules = [
         ./nix/home/common.nix
         ./nix/home/wsl.nix

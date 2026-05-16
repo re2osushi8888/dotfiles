@@ -1,13 +1,13 @@
-{ ... }: {
+{ username, ... }: {
   nix.enable = false;
 
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPath = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
 
-  users.users.re2 = {
-    name = "re2";
-    home = "/Users/re2";
+  users.users.${username} = {
+    name = username;
+    home = "/Users/${username}";
   };
 
   homebrew = {
@@ -24,7 +24,7 @@
     ];
   };
 
-  system.primaryUser = "re2";
+  system.primaryUser = username;
 
   system.stateVersion = 5;
 }
