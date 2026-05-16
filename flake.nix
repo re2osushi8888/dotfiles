@@ -11,15 +11,18 @@
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      mkHome = system: extraModules:
+        home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+          };
+          modules = [ ./nix/home/common.nix ] ++ extraModules;
+        };
     in {
-      homeConfigurations."re2" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        modules = [ ./nix/home.nix ];
+      homeConfigurations = {
+        "mac" = mkHome "aarch64-darwin" [ ./nix/home/mac.nix ];
+        "wsl" = mkHome "x86_64-linux" [ ./nix/home/wsl.nix ];
       };
     };
 }
