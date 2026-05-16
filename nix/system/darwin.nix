@@ -24,6 +24,28 @@
     ];
   };
 
+  system.defaults = {
+    NSGlobalDomain.AppleInterfaceStyle = "Dark";
+
+    finder = {
+      AppleShowAllExtensions = true;
+      ShowPathbar = true;
+    };
+
+    dock = {
+      show-recents = false;
+      tilesize = 96;
+      persistent-apps = [
+        "/System/Applications/System Settings.app"
+        "/Applications/Google Chrome.app"
+        "/Applications/WezTerm.app"
+        "/Applications/Ghostty.app"
+        "/Applications/Slack.app"
+        "/Applications/Discord.app"
+      ];
+    };
+  };
+
   programs.zsh.enable = true;
 
   system.primaryUser = username;
