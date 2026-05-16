@@ -13,6 +13,13 @@
   homebrew = {
     enable = true;
     casks = [
+      "cursor"
+      "discord"
+      "ghostty"
+      "google-chrome"
+      "obsidian"
+      "slack"
+      "visual-studio-code"
       "wezterm"
     ];
   };
