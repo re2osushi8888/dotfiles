@@ -4,7 +4,7 @@
   home.homeDirectory = "/Users/re2";
 
   programs.zsh.shellAliases = {
-    hms = "home-manager switch --flake ~/dotfiles#mac";
-    hmd = "home-manager switch --flake ~/dotfiles#mac --dry-run";
+    hms = "sudo darwin-rebuild switch --flake ~/dotfiles#mac";
+    hmd = "darwin-rebuild check --flake ~/dotfiles#mac";
   };
 }

@@ -3,26 +3,48 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
-    let
-      mkHome = system: extraModules:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
+  outputs = { nixpkgs, nix-darwin, home-manager, ... }: {
+
+    # macOS (nix-darwin + home-manager)
+    darwinConfigurations."mac" = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = [
+        ./nix/system/darwin.nix
+        home-manager.darwinModules.home-manager
+        {
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            users.re2.imports = [
+              ./nix/home/common.nix
+              ./nix/home/mac.nix
+            ];
           };
-          modules = [ ./nix/home/common.nix ] ++ extraModules;
-        };
-    in {
-      homeConfigurations = {
-        "mac" = mkHome "aarch64-darwin" [ ./nix/home/mac.nix ];
-        "wsl" = mkHome "x86_64-linux" [ ./nix/home/wsl.nix ];
-      };
+        }
+      ];
     };
+
+    # WSL Ubuntu (home-manager standalone)
+    homeConfigurations."wsl" = home-manager.lib.homeManagerConfiguration {
+      pkgs = import nixpkgs {
+        system = "x86_64-linux";
+        config.allowUnfree = true;
+      };
+      modules = [
+        ./nix/home/common.nix
+        ./nix/home/wsl.nix
+      ];
+    };
+
+  };
 }
