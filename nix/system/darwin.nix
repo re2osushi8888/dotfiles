@@ -20,6 +20,7 @@
       "obsidian"
       "slack"
       "visual-studio-code"
+      "raycast"
       "wezterm"
     ];
   };
