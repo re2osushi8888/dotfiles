@@ -46,6 +46,11 @@
     };
   };
 
+  system.keyboard = {
+    enableKeyMapping = true;
+    remapCapsLockToControl = true;
+  };
+
   programs.zsh.enable = true;
 
   system.primaryUser = username;
