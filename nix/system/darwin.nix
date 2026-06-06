@@ -36,6 +36,7 @@
       show-recents = false;
       tilesize = 96;
       persistent-apps = [
+        "/System/Applications/Launchpad.app"
         "/System/Applications/System Settings.app"
         "/Applications/Google Chrome.app"
         "/Applications/WezTerm.app"
