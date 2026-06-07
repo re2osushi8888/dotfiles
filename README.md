@@ -1,77 +1,131 @@
 # dotfiles
 
-## セットアップ方法
+## 対応環境
 
-WSL2 の Ubuntu を想定。前提として `zsh` と `git` がインストールされていること。
+| 環境 | フラグ | コマンド |
+|------|--------|---------|
+| macOS (Apple Silicon) | `#mac` | `sudo darwin-rebuild switch --flake ~/dotfiles#mac` |
+| WSL2 (Ubuntu) | `#wsl` | `home-manager switch --flake ~/dotfiles#wsl` |
 
 ---
 
-## Nix を使ったセットアップ（推奨）
+## macOS セットアップ
 
-パッケージ管理・dotfiles のシンボリックリンク・各種設定を home-manager で一括管理する。
+### 1. Homebrew のインストール
 
-### 1. Nix のインストール
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
 
-[zero-to-nix](https://zero-to-nix.com/start/install/) が推奨する [Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) を使う。flakes が最初から有効になる。
+インストール後、表示される `Next steps` の指示に従って PATH を通す（`~/.zprofile` への追記）。
+
+```bash
+# Apple Silicon の場合
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+### 2. Nix のインストール
+
+[Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) を使う。flakes が最初から有効になる。
 
 ```bash
 curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 ```
 
-インストーラーが表示するプランを確認・承認し、「Nix was installed successfully!」が表示されたら完了。新しいターミナルを開いて変更を反映する。
+新しいターミナルを開いて確認。
 
 ```bash
-nix --version  # バージョンが表示されれば成功
+nix --version
 ```
 
-### 2. dotfiles を clone
+### 3. dotfiles を clone
 
 ```bash
-cd ~
-git clone https://github.com/re2osushi8888/dotfiles.git
+git clone https://github.com/re2osushi8888/dotfiles.git ~/dotfiles
 ```
 
-### 3. 既存のシンボリックリンクを削除
+### 4. 既存のファイルを削除
 
-home-manager が管理するファイルと競合するため削除する。
+nix-darwin / home-manager が管理するファイルと競合するため削除する。
 
 ```bash
-rm ~/.zshrc ~/.zprofile ~/.gitconfig
+rm -f ~/.zshrc ~/.zprofile ~/.gitconfig
 ```
 
-### 4. home-manager を適用
+### 5. nix-darwin を適用
+
+初回のみ `nix run` で bootstrap する。
 
 ```bash
 cd ~/dotfiles
-nix run home-manager/master -- switch --flake .#re2
+sudo nix run nix-darwin -- switch --flake .#mac
 ```
 
-### 5. 以降の更新
-
-設定を変更したら以下を実行。
+次回以降は `hms` エイリアスで適用できる。
 
 ```bash
-home-manager switch --flake .#re2
+hms   # sudo darwin-rebuild switch --flake ~/dotfiles#mac
 ```
 
-### 管理構成
+---
 
-| 設定 | 管理方法 |
-|------|----------|
-| パッケージ (`ripgrep`, `neovim` など) | `nix/home.nix` の `home.packages` |
-| dotfiles のシンボリックリンク | `home.file` + `mkOutOfStoreSymlink` |
-| git 設定 | `programs.git` |
-| zsh 設定 | `programs.zsh` |
-| mise (rust, ghcup, claude) | mise のまま管理 |
+## WSL2 (Ubuntu) セットアップ
 
+### 1. 必要パッケージのインストール
 
-## Nix の日常的な使い方
+```bash
+sudo apt update && sudo apt install -y zsh git curl
+```
+
+### 2. Nix のインストール
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+```
+
+### 3. dotfiles を clone
+
+```bash
+git clone https://github.com/re2osushi8888/dotfiles.git ~/dotfiles
+```
+
+### 4. 既存のファイルを削除
+
+```bash
+rm -f ~/.zshrc ~/.gitconfig
+```
+
+### 5. home-manager を適用
+
+```bash
+cd ~/dotfiles
+nix run home-manager/master -- switch --flake .#wsl
+```
+
+次回以降は `hms` エイリアスで適用できる。
+
+```bash
+hms   # home-manager switch --flake ~/dotfiles#wsl
+```
+
+---
+
+## 日常的な使い方
+
+### 設定を反映する
+
+```bash
+hms   # 設定を適用
+hmd   # ドライラン（変更確認のみ）
+```
 
 ### パッケージを追加する
 
 ```bash
-# 1. nix/home.nix の home.packages に追加
-#    home.packages = with pkgs; [ bat ];
+# 1. nix/home/common.nix の home.packages に追加
+#    環境固有のパッケージは nix/home/mac.nix または nix/home/wsl.nix に追加
+#    macOS の GUI アプリは nix/system/darwin.nix の homebrew.casks に追加
 
 # 2. 反映
 hms
@@ -79,34 +133,42 @@ hms
 
 パッケージ名は https://search.nixos.org/packages で検索。
 
-### 設定を更新する
-
-```bash
-# nix/home.nix を編集後
-hms          # 反映
-hmd          # ドライラン（変更確認のみ）
-```
-
-### nixpkgs を最新に更新する
+### nixpkgs を更新する
 
 ```bash
 nix flake update   # flake.lock を更新
 hms                # 反映
 ```
 
-### ロールバック
+### ユーザー名を変更する
 
-```bash
-home-manager generations   # 世代一覧
-home-manager rollback      # 1つ前に戻す
+`flake.nix` の先頭の変数を変えるだけで全体に反映される。
+
+```nix
+macUser = "newname";
+wslUser = "newname";
 ```
 
 ---
 
-## おまけ：zsh のインストール・反映
+## 構成
 
-```bash
-sudo apt update
-sudo apt install -y zsh
-chsh -s "$(which zsh)"
 ```
+dotfiles/
+├── flake.nix              # エントリポイント（macUser / wslUser を定義）
+├── nix/
+│   ├── system/
+│   │   └── darwin.nix     # macOS システム設定・Homebrew casks
+│   └── home/
+│       ├── common.nix     # 全環境共通（git, neovim, zsh 等）
+│       ├── mac.nix        # macOS 固有（homeDirectory, エイリアス）
+│       └── wsl.nix        # WSL2 固有（homeDirectory, エイリアス）
+└── config/                # 各ツールの設定ファイル（symlink で管理）
+```
+
+| 設定 | ファイル |
+|------|---------|
+| 共通パッケージ・git・zsh | `nix/home/common.nix` |
+| macOS GUI アプリ (Homebrew) | `nix/system/darwin.nix` |
+| macOS 固有設定 | `nix/home/mac.nix` |
+| WSL 固有設定 | `nix/home/wsl.nix` |

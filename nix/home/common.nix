@@ -1,9 +1,8 @@
-{ config, pkgs, ... }:
+{ config, pkgs, username, ... }:
 
 {
   home = {
-    username = "re2";
-    homeDirectory = "/home/re2";
+    username = username;
     stateVersion = "25.05";
 
     sessionPath = [
@@ -35,7 +34,7 @@
       neovim
       lua-language-server         # lua_ls
       typescript-language-server  # ts_ls
-      prisma-language-server # primals
+      prisma-language-server      # primals
 
       # CLI
       gh           # GitHub CLI
@@ -49,6 +48,7 @@
       # 基本
       curl
       htop
+      tree
     ];
 
     # stow の代わりに home.file でシンボリックリンク管理
@@ -65,7 +65,6 @@
       ".config/mise/config.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/mise/config.toml";
     };
-
   };
 
   programs = {
@@ -142,10 +141,6 @@
       };
 
       shellAliases = {
-        # nix / home-manager
-        hms = "home-manager switch --flake ~/dotfiles#re2";
-        hmd = "home-manager switch --flake ~/dotfiles#re2 --dry-run";
-
         # ファイル操作
         ll  = "ls -l";
         la  = "ls -a";
