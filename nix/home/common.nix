@@ -9,10 +9,12 @@
       "$HOME/bin"
     ];
 
+    # mise で管理していたツールを nix packages に移行
+    # 残すもの(mise): rust, ghcup, claude (nixpkgs 未対応 or toolchain管理が複雑なもの)
     packages = with pkgs; [
       # シェルツール
-      sheldon
-      mise
+      sheldon   # zsh プラグインマネージャ
+      mise      # rust/ghcup/claude 用に残す
 
       # 検索・ナビゲーション
       ripgrep
@@ -22,20 +24,20 @@
 
       # ターミナル
       zellij
-      glow
+      glow       # markdown ビューア
 
       # 開発ツール
       lazygit
-      delta
-      stylua
+      delta      # git diff viewer
+      stylua     # Lua フォーマッタ
       tree-sitter
       neovim
-      lua-language-server
-      typescript-language-server
-      prisma-language-server
+      lua-language-server         # lua_ls
+      typescript-language-server  # ts_ls
+      prisma-language-server      # primals
 
       # CLI
-      gh
+      gh           # GitHub CLI
       jq
       claude-code
       cursor-cli
@@ -49,6 +51,8 @@
       tree
     ];
 
+    # stow の代わりに home.file でシンボリックリンク管理
+    # mkOutOfStoreSymlink: nix store 外のファイルへのリンク (編集可能)
     file = {
       ".config/sheldon".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/sheldon";
@@ -66,6 +70,7 @@
   programs = {
     home-manager.enable = true;
 
+    # git 設定 (.gitconfig を home-manager が管理)
     git = {
       enable = true;
       settings = {
@@ -106,23 +111,27 @@
           line-numbers = true;
           side-by-side = true;
         };
+        # ghq の root は複数指定 (リストで書くと重複キーになる)
         ghq.root = [ "~/work" "~/repos" ];
         "ghq \"https://github.com/re2osushi8888\"".root = "~/repos/";
         "includeIf \"gitdir:~/work/\"".path = "~/work/.gitconfig";
       };
     };
 
+    # fzf (zsh integration は home-manager が自動追加)
     fzf = {
       enable = true;
       enableZshIntegration = true;
     };
 
+    # direnv (ディレクトリごとの環境変数 / nix devShell の自動ロード)
     direnv = {
       enable = true;
       enableZshIntegration = true;
-      nix-direnv.enable = true;
+      nix-direnv.enable = true;  # nix devShell をキャッシュして高速化
     };
 
+    # zsh (.zshrc / .zprofile を home-manager が管理)
     zsh = {
       enable = true;
       enableCompletion = false;
@@ -165,7 +174,9 @@
         ca  = "cursor-agent";
       };
 
+      # .zshrc 相当
       initContent = ''
+        # compinit: 24時間キャッシュで compaudit をスキップ (起動時間の92%削減)
         autoload -U compinit
         if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
           compinit
@@ -175,18 +186,28 @@
 
         bindkey -e
 
+        # mise shims モード: .zprofile はログインシェルでしか読まれないため
+        # .zshrc (initContent) で PATH に追加する。
+        # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため重く、
+        # zprof 計測で起動時間の約55%を占めていた。shims モードはフックなしで軽量。
         export PATH="$HOME/.local/share/mise/shims:$PATH"
 
+        # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
 
+        # safe-chain: npm/pip/uv 等のマルウェア検知ラッパー (mise で管理)
         [[ -f "$HOME/.safe-chain/scripts/init-posix.sh" ]] && source "$HOME/.safe-chain/scripts/init-posix.sh"
 
+        # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
 
+        # starship プロンプト
         eval "$(starship init zsh)"
 
+        # Haskell (ghcup)
         [ -d "$HOME/.ghcup/bin" ] && export PATH="$HOME/.ghcup/bin:$PATH"
 
+        # git alias を g<name> でも呼べるようにする
         if command -v git >/dev/null 2>&1; then
           for alias in $(git config --get-regexp '^alias\.' | sed 's/^alias\.\([^ ]*\) .*/\1/'); do
             alias g''${alias}="git ''${alias}"
