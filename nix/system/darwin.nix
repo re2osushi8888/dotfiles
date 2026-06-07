@@ -44,6 +44,7 @@
         "/Applications/Ghostty.app"
         "/Applications/Slack.app"
         "/Applications/Discord.app"
+        "/Applications/WebPomodoro.app"
       ];
     };
   };
