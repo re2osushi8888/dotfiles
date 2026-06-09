@@ -21,6 +21,7 @@
       fd
       ghq
       bat
+      eza
 
       # ターミナル
       zellij
@@ -142,9 +143,10 @@
 
       shellAliases = {
         # ファイル操作
-        ll  = "ls -l";
-        la  = "ls -a";
-        lla = "ls -al";
+        ls  = "eza --icons";
+        ll  = "eza -l --icons --git";
+        la  = "eza -a --icons";
+        lla = "eza -al --icons --git";
         rm  = "rm -i";
         cp  = "cp -i";
         mv  = "mv -i";
