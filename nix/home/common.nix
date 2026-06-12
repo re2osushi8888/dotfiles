@@ -38,6 +38,7 @@
       prisma-language-server      # primals
 
       # CLI
+      duti         # macOS デフォルトアプリ設定
       gh           # GitHub CLI
       jq
       claude-code
