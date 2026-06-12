@@ -12,7 +12,9 @@
 
   homebrew = {
     enable = true;
+    taps = [ "manaflow-ai/cmux" ];
     casks = [
+      "cmux"
       "cursor"
       "discord"
       "ghostty"
@@ -20,7 +22,9 @@
       "obsidian"
       "slack"
       "visual-studio-code"
+      "intellij-idea-ce"
       "raycast"
+      "zed"
       "wezterm"
     ];
   };
@@ -41,7 +45,6 @@
         "/System/Applications/System Settings.app"
         "/Applications/Google Chrome.app"
         "/Applications/WezTerm.app"
-        "/Applications/Ghostty.app"
         "/Applications/Slack.app"
         "/Applications/Discord.app"
         "/Applications/WebPomodoro.app"
