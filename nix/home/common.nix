@@ -171,16 +171,6 @@
         cdd  = "cd ~/dotfiles";
         vimc = "nvim ~/dotfiles/config/";
 
-        # terraform
-        tf    = "terraform";
-        tfi   = "terraform init";
-        tfp   = "terraform plan";
-        tfa   = "terraform apply";
-        tfs   = "terraform state";
-        tfsl  = "terraform state list";
-        tfv   = "terraform validate";
-        tffmt = "terraform fmt -recursive";
-
         # AI
         cl  = "claude";
         clc = "claude --continue";
@@ -213,6 +203,16 @@
 
         # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
+
+        # terraform abbreviations (zsh-abbr)
+        abbr te="terraform"
+        abbr tei="terraform init"
+        abbr tep="terraform plan"
+        abbr tea="terraform apply"
+        abbr tes="terraform state"
+        abbr tesl="terraform state list"
+        abbr tev="terraform validate"
+        abbr tefmt="terraform fmt -recursive"
 
         # starship プロンプト
         eval "$(starship init zsh)"

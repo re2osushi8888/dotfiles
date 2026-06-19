@@ -20,6 +20,9 @@ defer = "{{ hooks | get: \"pre\" | nl }}{% for file in files %}zsh-defer source 
 [plugins.zsh-defer]
 github = "romkatv/zsh-defer"
 
+[plugins.zsh-abbr]
+github = "olets/zsh-abbr"
+
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
 apply = ["defer"]
