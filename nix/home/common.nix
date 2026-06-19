@@ -38,7 +38,6 @@
       prisma-language-server      # primals
 
       # CLI
-      duti         # macOS デフォルトアプリ設定
       gh           # GitHub CLI
       jq
       claude-code
@@ -70,6 +69,8 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/settings.json";
       ".claude/hooks".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/hooks";
+      ".claude/statusline-command.sh".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/statusline-command.sh";
     };
   };
 

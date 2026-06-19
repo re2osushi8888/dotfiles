@@ -3,9 +3,25 @@
     "commit": ""
   },
   "theme": "dark",
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true
+  "model": "sonnet[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh"
   },
+  "enabledPlugins": {
+    "typescript-lsp@claude-plugins-official": true,
+    "document-skills@anthropic-agent-skills": true,
+    "lua-lsp@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "anthropic-agent-skills": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/skills"
+      }
+    }
+  },
+  "skipAutoPermissionPrompt": true,
   "hooks": {
     "PreToolUse": [
       {
