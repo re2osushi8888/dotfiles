@@ -172,8 +172,6 @@
         vimc = "nvim ~/dotfiles/config/";
 
         # AI
-        cl  = "claude";
-        clc = "claude --continue";
         ca  = "cursor-agent";
       };
 
@@ -203,6 +201,12 @@
 
         # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
+
+        # claude abbreviations (zsh-abbr)
+        abbr cl="claude"
+        abbr clc="claude --continue"
+        abbr cld="claude --dangerously-skip-permissions"
+        abbr clcd="claude --continue --dangerously-skip-permissions"
 
         # terraform abbreviations (zsh-abbr)
         abbr te="terraform"
