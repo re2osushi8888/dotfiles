@@ -171,6 +171,16 @@
         cdd  = "cd ~/dotfiles";
         vimc = "nvim ~/dotfiles/config/";
 
+        # terraform
+        tf    = "terraform";
+        tfi   = "terraform init";
+        tfp   = "terraform plan";
+        tfa   = "terraform apply";
+        tfs   = "terraform state";
+        tfsl  = "terraform state list";
+        tfv   = "terraform validate";
+        tffmt = "terraform fmt -recursive";
+
         # AI
         cl  = "claude";
         clc = "claude --continue";
