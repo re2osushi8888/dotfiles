@@ -22,6 +22,7 @@
       ghq
       bat
       eza
+      broot
 
       # ターミナル
       zellij
