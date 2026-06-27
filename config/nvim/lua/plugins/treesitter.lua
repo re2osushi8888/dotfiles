@@ -21,6 +21,7 @@ return {
           "yaml",
           "toml",
           "prisma",
+          "rust",
         },
         auto_install = true,
       })
