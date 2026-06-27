@@ -5,6 +5,7 @@ node = "25"
 bun  = "1.3.14"
 "npm:@aikidosec/safe-chain" = "latest"
 rust   = "1.92.0"   # toolchain 管理が複雑なため (将来 rust-overlay で移行予定)
+go     = "1.26.4"
 
 [settings]
 experimental = false

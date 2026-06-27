@@ -22,6 +22,9 @@ return {
           "toml",
           "prisma",
           "rust",
+          "go",
+          "gomod",
+          "gosum",
         },
         auto_install = true,
       })

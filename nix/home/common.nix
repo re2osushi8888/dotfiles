@@ -37,6 +37,8 @@
       lua-language-server         # lua_ls
       typescript-language-server  # ts_ls
       prisma-language-server      # primals
+      gopls                       # Go LSP
+      gofumpt                     # Go フォーマッタ (gofmt の上位互換)
 
       # CLI
       gh           # GitHub CLI

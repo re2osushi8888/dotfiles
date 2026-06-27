@@ -5,6 +5,7 @@ return {
 		formatters_by_ft = {
 			lua = { "stylua" },
 			rust = { "rustfmt" },
+			go = { "gofumpt" },
 		},
 
 		-- 保存時フォーマットはvim練習のため設定しないでおく
