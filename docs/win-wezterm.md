@@ -30,7 +30,7 @@ local DISTRO = "<調べたディストリビューション名>"
 local LINUX_USER = "<調べたユーザー名>"
 
 -- WSL上の.config/wezterm設定を読み込む
-local WSL_CONFIG = ([[\\wsl$\%s\home\%s\dotfiles\config\.config\wezterm\wezterm.lua]]):format(DISTRO, LINUX_USER)
+local WSL_CONFIG = ([[\\wsl$\%s\home\%s\dotfiles\config\wezterm\wezterm.lua]]):format(DISTRO, LINUX_USER)
 
 local ok, cfg = pcall(dofile, WSL_CONFIG)
 if not ok then

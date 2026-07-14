@@ -3,7 +3,7 @@ local config = wezterm.config_builder()
 
 -- 【重要】WSL内のluaディレクトリを検索パスに追加する
 -- Windowsから見たディレクトリに変更する
-local wsl_dotfiles_path = "//wsl.localhost/Ubuntu-24.04/home/r-yamamoto/dotfiles/config/.config/wezterm/?.lua"
+local wsl_dotfiles_path = "//wsl.localhost/Ubuntu-24.04/home/re2/dotfiles/config/wezterm/?.lua"
 package.path = package.path .. ";" .. wsl_dotfiles_path
 
 config.automatically_reload_config = true
