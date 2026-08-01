@@ -110,14 +110,6 @@
         diff.tool          = "nvimdiff";
         difftool.prompt    = false;
         "difftool \"nvimdiff\"".cmd = ''nvim -d "$LOCAL" "$REMOTE"'';
-        pager = {
-          diff    = "delta";
-          log     = "delta";
-          reflog  = "delta";
-          show    = "delta";
-        };
-        core.pager               = "delta";
-        interactive.diffFilter   = "delta --color-only";
         delta = {
           navigate     = true;
           line-numbers = true;
@@ -201,6 +193,9 @@
         # .zshrc (initContent) で PATH に追加する。
         # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため重く、
         # zprof 計測で起動時間の約55%を占めていた。shims モードはフックなしで軽量。
+        # 優先度: mise shims > ~/.cargo/bin > 残り
+        # mise が rust toolchain を管理しているため shims を最優先にする
+        export PATH="$HOME/.cargo/bin:$PATH"
         export PATH="$HOME/.local/share/mise/shims:$PATH"
 
         # WezTerm shell integration
@@ -233,6 +228,9 @@
 
         # Haskell (ghcup)
         [ -d "$HOME/.ghcup/bin" ] && export PATH="$HOME/.ghcup/bin:$PATH"
+
+        # delta をローカルの git pager として使う (gitconfig には書かない)
+        export GIT_PAGER=delta
 
         # git alias を g<name> でも呼べるようにする
         if command -v git >/dev/null 2>&1; then
