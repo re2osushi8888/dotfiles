@@ -11,8 +11,6 @@ config.window_frame = {
   font_size = 12.0,
 }
 config.color_scheme = "Tokyo Night"
-config.window_background_opacity = 0.5  -- ぼかしON時の透過率
-config.win32_system_backdrop = "Acrylic"  -- Windows向けのぼかし効果
 config.use_ime = true
 
 -- リガチャ（ligature）を無効化（===や->などの自動変換をオフ）

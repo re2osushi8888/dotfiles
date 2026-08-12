@@ -6,7 +6,7 @@ local act = wezterm.action
 -- 追加する際は、ショートカットチートシート (docs/shotcuts-cheat-sheet.md) も更新してください。
 
 -- 透過率調整の共通ロジック
-local function adjust_opacity(window, pane, delta)
+local function adjust_opacity(window, _, delta)
   local overrides = window:get_config_overrides() or {}
   local current_opacity = overrides.window_background_opacity
   if current_opacity == nil then
@@ -18,7 +18,7 @@ local function adjust_opacity(window, pane, delta)
 end
 
 -- ぼかしのオン/オフ切り替えの共通ロジック
-local function toggle_blur(window, pane)
+local function toggle_blur(window, _)
   local overrides = window:get_config_overrides() or {}
 
   -- 現在のぼかし設定を取得
@@ -31,7 +31,7 @@ local function toggle_blur(window, pane)
   if current_backdrop == "Acrylic" then
     -- ぼかしOFF
     overrides.win32_system_backdrop = "Disable"
-    overrides.window_background_opacity = 0.70
+    overrides.window_background_opacity = 1.0
   else
     -- ぼかしON
     overrides.win32_system_backdrop = "Acrylic"
@@ -191,7 +191,7 @@ return {
             { Foreground = { AnsiColor = 'Fuchsia' } },
             { Text = 'Enter new name for workspace' },
           },
-          action = wezterm.action_callback(function(window, pane, line)
+          action = wezterm.action_callback(function(_, _, line)
             if line then
               wezterm.mux.rename_workspace(
                 wezterm.mux.get_active_workspace(),
