@@ -45,11 +45,24 @@
 
 ## LSP
 
-### カスタム設定 (LazyVim スタイル / LspAttach 時に有効)
+### Telescope 統合 (LspAttach 時に有効)
 
 | キー | モード | 機能 |
 |------|--------|------|
-| `gd` | Normal | 定義へジャンプ |
+| `gd` | Normal | 定義へジャンプ (Telescope) |
+| `grr` | Normal | 参照一覧 (Telescope) ※デフォルト上書き |
+| `gri` | Normal | 実装へジャンプ (Telescope) ※デフォルト上書き |
+| `grt` | Normal | 型定義へジャンプ (Telescope) ※デフォルト上書き |
+| `gO` | Normal | ドキュメントシンボル (Telescope) ※デフォルト上書き |
+| `<leader>ws` | Normal | ワークスペースシンボル |
+| `<leader>wS` | Normal | ワークスペースシンボル (動的) |
+| `<leader>ci` | Normal | 呼び出し元一覧 (Incoming Calls) |
+| `<leader>co` | Normal | 呼び出し先一覧 (Outgoing Calls) |
+
+### 生 LSP (Telescope 非対応 / LspAttach 時に有効)
+
+| キー | モード | 機能 |
+|------|--------|------|
 | `gD` | Normal | 宣言へジャンプ |
 | `gK` | Normal | シグネチャヘルプ |
 | `<C-k>` | Insert | シグネチャヘルプ |
@@ -61,11 +74,7 @@
 | `K` | ホバードキュメント (LspAttach 時のみ有効) |
 | `grn` | リネーム |
 | `gra` | コードアクション |
-| `grr` | 参照一覧 |
-| `gri` | 実装へジャンプ |
-| `grt` | 型定義へジャンプ |
 | `grx` | CodeLens 実行 |
-| `gO` | ドキュメントシンボル一覧 |
 | `<C-S>` | シグネチャヘルプ (Insert/Select) |
 
 ---
