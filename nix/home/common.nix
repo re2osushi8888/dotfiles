@@ -45,6 +45,7 @@
       jq
       claude-code
       cursor-cli
+      bitwarden-cli  # bw コマンド (パスワード/シークレット管理)
 
       # シェルプロンプト
       starship
@@ -231,6 +232,16 @@
 
         # delta をローカルの git pager として使う (gitconfig には書かない)
         export GIT_PAGER=delta
+
+        # Bitwarden CLI: ロックされている時だけ unlock する (docs/bitwarden-cli-session.md 参照)
+        # BW_SESSION を静的に export せず、必要な時だけ呼び出す想定
+        bwu() {
+          if [ "$(bw status | jq -r '.status')" = "unlocked" ]; then
+            echo "bw: already unlocked"
+          else
+            export BW_SESSION="$(bw unlock --raw)"
+          fi
+        }
 
         # git alias を g<name> でも呼べるようにする
         if command -v git >/dev/null 2>&1; then
