@@ -46,6 +46,7 @@
       claude-code
       cursor-cli
       bitwarden-cli  # bw コマンド (パスワード/シークレット管理)
+      bws            # Bitwarden Secrets Manager CLI (bws run でファイルに書かず env 注入)
 
       # シェルプロンプト
       starship
