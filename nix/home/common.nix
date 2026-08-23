@@ -78,6 +78,8 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/statusline-command.sh";
       ".claude/CLAUDE.md".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/CLAUDE.md";
+      ".claude/keybindings.json".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/keybindings.json";
     };
   };
 
