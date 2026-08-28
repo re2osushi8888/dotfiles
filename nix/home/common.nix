@@ -50,6 +50,7 @@
       jq
       claude-code
       cursor-cli
+      herdr        # ターミナル常駐のエージェントマルチプレクサ (https://herdr.dev)
       bitwarden-cli  # bw コマンド (パスワード/シークレット管理)
       bws            # Bitwarden Secrets Manager CLI (bws run でファイルに書かず env 注入)
 
@@ -204,6 +205,9 @@
         # mise が rust toolchain を管理しているため shims を最優先にする
         export PATH="$HOME/.cargo/bin:$PATH"
         export PATH="$HOME/.local/share/mise/shims:$PATH"
+
+        # OrbStack: command-line tools and integration
+        source ~/.orbstack/shell/init.zsh 2>/dev/null || :
 
         # WezTerm shell integration
         source "$HOME/.config/wezterm/wezterm.sh"
