@@ -43,6 +43,7 @@
       prisma-language-server      # primals
       gopls                       # Go LSP
       gofumpt                     # Go フォーマッタ (gofmt の上位互換)
+      slidev-cli # プレゼンテーション作成ツール
 
       # CLI
       gh           # GitHub CLI
