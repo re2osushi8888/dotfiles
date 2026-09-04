@@ -1,6 +1,10 @@
 { config, pkgs, username, ... }:
 
 {
+  imports = [
+    ./claude-code.nix
+  ];
+
   home = {
     username = username;
     stateVersion = "25.05";
@@ -70,8 +74,6 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/wezterm";
       ".config/mise/config.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/mise/config.toml";
-      ".claude/settings.json".source =
-        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/settings.json";
       ".claude/hooks".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/hooks";
       ".claude/statusline-command.sh".source =
