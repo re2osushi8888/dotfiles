@@ -14,6 +14,7 @@
     enable = true;
     taps = [ "manaflow-ai/cmux" ];
     casks = [
+      "claude"
       "cmux"
       "cursor"
       "discord"
