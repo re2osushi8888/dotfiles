@@ -115,6 +115,7 @@
         };
         credential."https://github.com".helper      = "!gh auth git-credential";
         credential."https://gist.github.com".helper = "!gh auth git-credential";
+        core.quotepath    = false;
         diff.tool          = "nvimdiff";
         difftool.prompt    = false;
         "difftool \"nvimdiff\"".cmd = ''nvim -d "$LOCAL" "$REMOTE"'';
