@@ -1,5 +1,29 @@
-{ config, pkgs, username, ... }:
+{ config, lib, pkgs, username, ... }:
 
+let
+  # zsh-abbr の abbreviation 定義
+  # programs.zsh.zsh-abbr.enable は使わない: そのモジュールは
+  # プラグイン本体を programs.zsh.plugins 経由で同期ロードしてしまい、
+  # sheldon 側の defer 管理と重複・競合するため、
+  # ファイル生成 (nix) とプラグインロード (sheldon, defer 付き) を分離している
+  zshAbbreviations = {
+    # claude
+    cl = "claude";
+    clc = "claude --continue";
+    cld = "claude --dangerously-skip-permissions";
+    clcd = "claude --continue --dangerously-skip-permissions";
+
+    # terraform
+    te = "terraform";
+    tei = "terraform init";
+    tep = "terraform plan";
+    tea = "terraform apply";
+    tes = "terraform state";
+    tesl = "terraform state list";
+    tev = "terraform validate";
+    tefmt = "terraform fmt -recursive";
+  };
+in
 {
   imports = [
     ./claude-code.nix
@@ -35,6 +59,7 @@
       # 開発ツール
       lazygit
       delta      # git diff viewer
+      hyperfine  # ベンチマーク (zsh 起動時間計測など)
       stylua     # Lua フォーマッタ
       tree-sitter
       neovim
@@ -86,6 +111,12 @@
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/claude/keybindings.json";
     };
   };
+
+  xdg.configFile."zsh-abbr/user-abbreviations".text =
+    lib.concatStringsSep "\n" (
+      lib.mapAttrsToList (k: v: "abbr ${lib.escapeShellArg k}=${lib.escapeShellArg v}") zshAbbreviations
+    )
+    + "\n";
 
   programs = {
     home-manager.enable = true;
@@ -189,12 +220,17 @@
       # .zshrc 相当
       initContent = ''
         # compinit: 24時間キャッシュで compaudit をスキップ (起動時間の92%削減)
+        # (#q...) glob qualifier は extendedglob が有効でないと文字列として展開されず、
+        # 常に非空 = 常にキャッシュ切れ扱いになってしまうため必須。
+        # nix flake の `#attr` 参照 (例: dotfiles#wsl) を壊さないよう、判定後は元に戻す。
+        setopt extendedglob
         autoload -U compinit
         if [[ -n ''${ZDOTDIR:-$HOME}/.zcompdump(#qN.mh+24) ]]; then
           compinit
         else
           compinit -C
         fi
+        unsetopt extendedglob
 
         bindkey -e
 
@@ -218,22 +254,6 @@
 
         # sheldon でプラグイン読み込み
         eval "$(sheldon source)"
-
-        # claude abbreviations (zsh-abbr)
-        abbr cl="claude"
-        abbr clc="claude --continue"
-        abbr cld="claude --dangerously-skip-permissions"
-        abbr clcd="claude --continue --dangerously-skip-permissions"
-
-        # terraform abbreviations (zsh-abbr)
-        abbr te="terraform"
-        abbr tei="terraform init"
-        abbr tep="terraform plan"
-        abbr tea="terraform apply"
-        abbr tes="terraform state"
-        abbr tesl="terraform state list"
-        abbr tev="terraform validate"
-        abbr tefmt="terraform fmt -recursive"
 
         # starship プロンプト
         eval "$(starship init zsh)"

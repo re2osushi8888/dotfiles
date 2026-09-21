@@ -22,6 +22,7 @@ github = "romkatv/zsh-defer"
 
 [plugins.zsh-abbr]
 github = "olets/zsh-abbr"
+apply = ["defer"]
 
 [plugins.fzf-tab]
 github = "Aloxaf/fzf-tab"
