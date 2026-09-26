@@ -72,6 +72,7 @@ in
 
       # CLI
       gh           # GitHub CLI
+      glab         # GitLab CLI
       jq
       claude-code
       cursor-cli
