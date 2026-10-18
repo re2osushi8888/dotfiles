@@ -174,6 +174,15 @@ in
       enable = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;  # nix devShell をキャッシュして高速化
+      config = {
+        global = {
+          warn_timeout = "0s";
+          hide_env_diff = true;
+        };
+      };
+      stdlib = ''
+        export DIRENV_LOG_FORMAT=""
+      '';
     };
 
     # zsh (.zshrc / .zprofile を home-manager が管理)
