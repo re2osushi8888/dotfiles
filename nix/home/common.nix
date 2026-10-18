@@ -248,9 +248,7 @@ in
         # .zshrc (initContent) で PATH に追加する。
         # activate zsh (デフォルト) は毎プロンプトで _mise_hook を実行するため重く、
         # zprof 計測で起動時間の約55%を占めていた。shims モードはフックなしで軽量。
-        # 優先度: mise shims > ~/.cargo/bin > 残り
-        # mise が rust toolchain を管理しているため shims を最優先にする
-        export PATH="$HOME/.cargo/bin:$PATH"
+        # 優先度: mise shims > 残り
         export PATH="$HOME/.local/share/mise/shims:$PATH"
 
         # OrbStack: command-line tools and integration
