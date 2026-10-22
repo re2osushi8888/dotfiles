@@ -35,6 +35,7 @@ in
 
     sessionPath = [
       "$HOME/bin"
+      "$HOME/.local/bin"
     ];
 
     # mise で管理していたツールを nix packages に移行
