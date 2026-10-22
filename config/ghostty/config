@@ -1,0 +1,17 @@
+# WezTerm (config/wezterm/wezterm.lua) のフォント・配色に合わせた設定
+
+font-family = JetBrains Mono
+font-size = 12
+
+theme = TokyoNight
+
+# リガチャ無効化 (WezTerm側の calt=0 clig=0 liga=0 に合わせる)
+font-feature = -calt
+font-feature = -clig
+font-feature = -liga
+
+copy-on-select = true
+
+# SKK系IME(macSKK/AquaSKK)のCtrl-Jをひらがなモード切替に使うため、
+# ターミナル側の改行動作を無効化してIMEに専有させる
+keybind = ctrl+j=ignore
