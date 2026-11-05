@@ -5,6 +5,10 @@ font-size = 12
 
 theme = TokyoNight
 
+# カーソル色 (WezTerm の cursor_bg / cursor_fg、Neovim の Cursor と揃える)
+cursor-color = #c3e88d
+cursor-text = #222436
+
 # リガチャ無効化 (WezTerm側の calt=0 clig=0 liga=0 に合わせる)
 font-feature = -calt
 font-feature = -clig

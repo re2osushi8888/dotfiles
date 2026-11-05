@@ -11,6 +11,12 @@ config.window_frame = {
   font_size = 12.0,
 }
 config.color_scheme = "Tokyo Night"
+-- カーソル（四角）の色。Neovim の Cursor ハイライトと揃える
+config.colors = {
+  cursor_bg = "#c3e88d",
+  cursor_border = "#c3e88d",
+  cursor_fg = "#222436",
+}
 config.use_ime = true
 
 -- リガチャ（ligature）を無効化（===や->などの自動変換をオフ）

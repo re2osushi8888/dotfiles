@@ -103,6 +103,9 @@ in
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/wezterm";
       ".config/ghostty".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/ghostty";
+      # ~/.config/herdr はソケットやログを置くので、ディレクトリごとではなく config.toml だけをリンクする
+      ".config/herdr/config.toml".source =
+        config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/herdr/config.toml";
       ".config/mise/config.toml".source =
         config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dotfiles/config/mise/config.toml";
       ".claude/hooks".source =
