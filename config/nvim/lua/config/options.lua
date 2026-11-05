@@ -3,7 +3,7 @@ vim.opt.relativenumber = false
 
 -- カーソル行をハイライトする
 vim.opt.cursorline = true
-vim.opt.cursorlineopt = { "number", "line" }
+vim.opt.cursorlineopt = "number"
 
 -- 背景の透明化
 vim.opt.termguicolors = true
