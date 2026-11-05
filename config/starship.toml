@@ -15,10 +15,92 @@ disabled = true
 [nodejs]
 disabled = true
 
+# Show each language's file extension instead of its emoji (the version is still shown)
+[bun]
+symbol = 'js '
+
+[cobol]
+symbol = 'cob '
+
+[crystal]
+symbol = 'cr '
+
+[dart]
+symbol = 'dart '
+
+[deno]
+symbol = 'ts '
+
+[elixir]
+symbol = 'ex '
+
+[elm]
+symbol = 'elm '
+
+[fennel]
+symbol = 'fnl '
+
+[fortran]
+symbol = 'f90 '
+
+[gleam]
+symbol = 'gleam '
+
+[golang]
+symbol = 'go '
+
+[java]
+symbol = 'java '
+
+[kotlin]
+symbol = 'kt '
+
+[lua]
+symbol = 'lua '
+
+[mojo]
+symbol = 'mojo '
+
+[nim]
+symbol = 'nim '
+
+[ocaml]
+symbol = 'ml '
+
+[perl]
+symbol = 'pl '
+
+[php]
+symbol = 'php '
+
+[python]
+symbol = 'py '
+
+[raku]
+symbol = 'raku '
+
+[red]
+symbol = 'red '
+
+[rlang]
+symbol = 'R '
+
+[ruby]
+symbol = 'rb '
+
+[rust]
+symbol = 'rs '
+
+[scala]
+symbol = 'scala '
+
+[swift]
+symbol = 'swift '
+
 [custom.git_user]
 description = "git user.name"
 require_repo = true
-command = 'git config user.name || echo "❌Unset Git User"'
+command = 'git config user.name || echo "[!] Unset Git User"'
 when = 'git config user.name >/dev/null 2>&1'
 format = 'as [$output]($style) '
 style = 'bold cyan'

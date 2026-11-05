@@ -1,1 +1,4 @@
 result
+
+# herdr が `herdr integration install claude` で生成・上書きするフック（追跡しない）
+config/claude/hooks/herdr-agent-state.sh

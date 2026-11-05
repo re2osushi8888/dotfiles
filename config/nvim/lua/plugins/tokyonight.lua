@@ -25,6 +25,12 @@ return {
         hi.LineNrBelow = {
           fg = c.blue5,
         }
+        -- カーソル自体の色（行の背景に埋もれないよう明るい色で反転表示）
+        hi.Cursor = {
+          fg = c.bg,
+          bg = c.green,
+          bold = true,
+        }
         -- WinSeparator(枠線)のカラースキーム
         hi.WinSeparator = {
           fg = c.blue5,

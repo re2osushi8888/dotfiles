@@ -1,0 +1,4 @@
+onboarding = false
+# WezTerm のカーソル色（config/wezterm/wezterm.lua）を使うため、herdr 自前のカーソル描画を止める
+[ui]
+host_cursor = "native"
